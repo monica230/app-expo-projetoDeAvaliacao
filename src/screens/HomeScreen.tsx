@@ -11,7 +11,7 @@ export default function HomeScreen({ navigation }: any) {
             <Header />
             <View>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity  style={styles.button}>
                     <Icon name="archive" size={30} color="#ccc" />
                     <Text style={styles.text}>Estoque</Text>
                 </TouchableOpacity>
