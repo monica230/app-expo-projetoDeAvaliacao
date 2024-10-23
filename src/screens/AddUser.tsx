@@ -9,6 +9,9 @@ export default function NovoUsuario() {
     const [document, setDocument] = useState('')
     const [email, setEmail] = useState('')
     const [name, setname] = useState('')
+    const [endereco, setEndereco] = useState('')
+    const [senha, setSenha] = useState('')
+    const [confirme, setconfirme] = useState('')
 
     function changeProfileMotorista() {
         setProfile('motorista')
@@ -62,40 +65,70 @@ export default function NovoUsuario() {
             </View>
 
 
-            <View >
-                <View>
-                    <Text>Nome completo</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={name}
-                        onChangeText={setname}
-                    />
-                </View>
 
-                <View>
-                    <Text>{profile === 'motorista' ? 'CPF' : 'CNPJ'}</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={document}
-                        onChangeText={setDocument}
-                    />
-                </View>
-
-                <View>
-                    <Text>Email</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                </View>
+            <View style={styles.inputContainer}>
+                <Text>Nome completo</Text>
+                <TextInput
+                    style={styles.input}
+                    value={name}
+                    onChangeText={setname}
+                />
             </View>
+
+            <View style={styles.inputContainer}>
+                <Text>{profile === 'motorista' ? 'CPF' : 'CNPJ'}</Text>
+                <TextInput
+                    style={styles.input}
+                    value={document}
+                    onChangeText={setDocument}
+                />
+            </View>
+
+
+            <View style={styles.inputContainer}>
+                <Text>Endereço Completo</Text>
+                <TextInput
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setEndereco}
+                />
+            </View>
+
+            <View style={styles.inputContainer}>
+                <Text>Email</Text>
+                <TextInput
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setEmail}
+                />
+            </View>
+
+            <View style={styles.inputContainer}>
+                <Text>Senha</Text>
+                <TextInput
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setSenha}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Text>Confirme a Senha</Text>
+                <TextInput
+                    style={styles.input}
+                    value={confirme}
+                    onChangeText={setconfirme} />
+            </View>
+
+
 
             <View style={styles.button}>
                 <TouchableOpacity onPress={() => console.log('Botão pressionado')}>
                     <Text style={styles.buttonText}> Cadastrar</Text>
                 </TouchableOpacity>
             </View>
+
+
+
         </SafeAreaView>
 
     )
@@ -104,32 +137,44 @@ export default function NovoUsuario() {
 const styles = StyleSheet.create({
 
     containerPrimary: {
-        alignItems: "center"
+        alignItems: "center",
+        flex: 1,
+        justifyContent: "center",
     },
     containerOptions: {
         flexDirection: "row",
         justifyContent: "space-around",
-        marginTop: 15,
+        marginTop: 25,
     },
     optionProfile: {
         width: 100,
-        height: 50,
+        height: 80,
         backgroundColor: "#000069",
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 20,
+        marginTop: 25,
     },
-  
+    textinput: {
+        width: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    inputContainer: {
+        width: '80%',
+        marginHorizontal: 'auto'
+    },
 
     input: {
         borderWidth: 1,
         borderColor: "#ccc",
-        width: "70%",
+        width: "100%",
         height: 32,
         marginVertical: 10,
         padding: 10,
-        borderRadius:8,
-
+        borderRadius: 8,
     },
     button: {
         backgroundColor: "#000069",
@@ -140,12 +185,13 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         borderColor: "#ffd700",
         borderWidth: 2,
+        alignSelf: 'center',
+        marginTop: 25,
     },
     buttonText: {
         color: "#ffd700",
         height: 20,
         fontWeight: "bold",
         fontSize: 15,
-    }
-
+    },
 })
