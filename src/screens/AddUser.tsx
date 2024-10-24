@@ -29,10 +29,10 @@ export default function NovoUsuario({ navigation }: any) {
 
     function saveUser() {
         // validar
-        console.log (name, document, endereco ,email, senha, confirme)
-        if (name === "" || document === "" || endereco === "" || email === "" || senha === "" || confirme === "") {
+        console.log(profile, name, document, endereco, email, senha, confirme)
+        if (profile === "" || name === "" || document === "" || endereco === "" || email === "" || senha === "" || confirme === "") {
             alert("todos os campos são obrigatorios!")
-            return 
+            return
         }
         if (senha !== confirme) {
             alert("Senhas não são iguais")
@@ -41,7 +41,7 @@ export default function NovoUsuario({ navigation }: any) {
 
         // fazer requisição para cadastrar usuario
 
-        axios.post(process.env.EXPO_PUBLIC_API_URL + '/register', {
+        axios.post('http://192.168.0.7:3000/register', {
             profile: profile,
             name: name,
             document: document,
@@ -51,6 +51,7 @@ export default function NovoUsuario({ navigation }: any) {
         })
             .then(() => {
                 console.log("DEU CERTO")
+                handleNavigateToUser()
                 alert("Usuário Cadastrado com Sucesso!")
             })
             .catch((error) => {
@@ -82,7 +83,7 @@ export default function NovoUsuario({ navigation }: any) {
 
 
             <View style={styles.inputContainer}>
-                <Text>Nome completo</Text>
+                <Text style={styles.space}>Nome completo</Text>
                 <TextInput
                     style={styles.input}
                     value={name}
@@ -101,7 +102,7 @@ export default function NovoUsuario({ navigation }: any) {
 
 
             <View style={styles.inputContainer}>
-                <Text>Endereço Completo</Text>
+                <Text style={styles.space}>Endereço Completo</Text>
                 <TextInput
                     style={styles.input}
                     value={endereco}
@@ -110,7 +111,7 @@ export default function NovoUsuario({ navigation }: any) {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text>Email</Text>
+                <Text style={styles.space}>Email</Text>
                 <TextInput
                     style={styles.input}
                     value={email}
@@ -119,16 +120,18 @@ export default function NovoUsuario({ navigation }: any) {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text>Senha</Text>
+                <Text style={styles.space}>Senha</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.input}
                     value={senha}
                     onChangeText={setSenha}
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Text>Confirme a Senha</Text>
+                <Text style={styles.space}>Confirme a Senha</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.input}
                     value={confirme}
                     onChangeText={setconfirme} />
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
 
     inputContainer: {
         width: '80%',
-        marginHorizontal: 'auto'
+        marginHorizontal: 'auto',
     },
 
     input: {
@@ -209,4 +212,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 15,
     },
+    space:{
+        letterSpacing:1.5,
+    }
 })
