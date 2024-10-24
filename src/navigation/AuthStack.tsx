@@ -20,7 +20,7 @@ export default function AuthStack() {
             />
             <Stack.Screen name="Adicionar Usuário" component={AddUser}
             />
-            <Stack.Screen name="Tela de Listagem de Produtos" component={ProdListScreen}/>
+            <Stack.Screen name="ProdListScreen" component={ProdListScreen}/>
         </Stack.Navigator>
     )
 }
