@@ -3,15 +3,21 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useState } from "react";
 import axios from "axios";
 
-export default function NovoUsuario() {
 
-    const [profile, setProfile] = useState('motorista')
+export default function NovoUsuario({ navigation }: any) {
+
+
+    const [profile, setProfile] = useState('')
     const [document, setDocument] = useState('')
     const [email, setEmail] = useState('')
     const [name, setname] = useState('')
     const [endereco, setEndereco] = useState('')
     const [senha, setSenha] = useState('')
     const [confirme, setconfirme] = useState('')
+
+    function handleNavigateToUser() {
+        navigation.navigate("ProdListScreen");
+    }
 
     function changeProfileMotorista() {
         setProfile('motorista')
@@ -23,23 +29,33 @@ export default function NovoUsuario() {
 
     function saveUser() {
         // validar
+        console.log(profile, name, document, endereco, email, senha, confirme)
+        if (profile === "" || name === "" || document === "" || endereco === "" || email === "" || senha === "" || confirme === "") {
+            alert("todos os campos são obrigatorios!")
+            return
+        }
+        if (senha !== confirme) {
+            alert("Senhas não são iguais")
+            return
+        }
 
         // fazer requisição para cadastrar usuario
 
-        axios.post(process.env.EXPO_PUBLIC_API_URL + '/register', {
+        axios.post('http://192.168.0.7:3000/register', {
             profile: profile,
-            name: 'Henrique Douglas',
+            name: name,
             document: document,
-            full_address: "Rua x, bairro y",
+            full_address: endereco,
             email: email,
-            password: "123456"
+            password: senha
         })
             .then(() => {
                 console.log("DEU CERTO")
-
+                handleNavigateToUser()
+                alert("Usuário Cadastrado com Sucesso!")
             })
-            .catch(() => {
-
+            .catch((error) => {
+                alert("Erro ao cadastrar usuário.")
             })
     }
 
@@ -67,7 +83,7 @@ export default function NovoUsuario() {
 
 
             <View style={styles.inputContainer}>
-                <Text>Nome completo</Text>
+                <Text style={styles.space}>Nome completo</Text>
                 <TextInput
                     style={styles.input}
                     value={name}
@@ -86,16 +102,16 @@ export default function NovoUsuario() {
 
 
             <View style={styles.inputContainer}>
-                <Text>Endereço Completo</Text>
+                <Text style={styles.space}>Endereço Completo</Text>
                 <TextInput
                     style={styles.input}
-                    value={email}
+                    value={endereco}
                     onChangeText={setEndereco}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text>Email</Text>
+                <Text style={styles.space}>Email</Text>
                 <TextInput
                     style={styles.input}
                     value={email}
@@ -104,16 +120,18 @@ export default function NovoUsuario() {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text>Senha</Text>
+                <Text style={styles.space}>Senha</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.input}
-                    value={email}
+                    value={senha}
                     onChangeText={setSenha}
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Text>Confirme a Senha</Text>
+                <Text style={styles.space}>Confirme a Senha</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.input}
                     value={confirme}
                     onChangeText={setconfirme} />
@@ -122,8 +140,8 @@ export default function NovoUsuario() {
 
 
             <View style={styles.button}>
-                <TouchableOpacity onPress={() => console.log('Botão pressionado')}>
-                    <Text style={styles.buttonText}> Cadastrar</Text>
+                <TouchableOpacity onPress={saveUser} >
+                    <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>
 
@@ -164,7 +182,7 @@ const styles = StyleSheet.create({
 
     inputContainer: {
         width: '80%',
-        marginHorizontal: 'auto'
+        marginHorizontal: 'auto',
     },
 
     input: {
@@ -194,4 +212,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 15,
     },
+    space:{
+        letterSpacing:1.5,
+    }
 })
