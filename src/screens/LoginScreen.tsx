@@ -35,29 +35,25 @@ export default function LoginScreen() {
                 style={styles.image}
             />
 
-            <View style={styles.areaTitle}>
-                <Text style={styles.title}>
-                    Login
-                </Text>
+            <View>
+                <TextInput
+                    value={email}
+                    placeholder="Email"
+                    placeholderTextColor="#888"
+                    style={styles.input}
+                    keyboardType="email-address"
+                    onChangeText={(text) => setEmail(text)}
+                />
+
+                <TextInput
+                    value={password}
+                    placeholder="Senha"
+                    placeholderTextColor="#888"
+                    style={styles.input}
+                    secureTextEntry={true}
+                    onChangeText={(text) => setPassword(text)}
+                />
             </View>
-
-            <TextInput
-                value={email}
-                placeholder="Email"
-                placeholderTextColor="#888"
-                style={styles.input}
-                keyboardType="email-address"
-                onChangeText={(text) => setEmail(text)}
-            />
-
-            <TextInput
-                value={password}
-                placeholder="Senha"
-                placeholderTextColor="#888"
-                style={styles.input}
-                secureTextEntry={true}
-                onChangeText={(text) => setPassword(text)}
-            />
 
             <View>
                 <TouchableOpacity
@@ -79,23 +75,21 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 230,
+        height: 230,
         alignSelf: "center",
         marginBottom: 16,
         borderRadius: 50,
     },
-    areaTitle: {
-        alignItems: "center",
 
-    },
     title: {
         fontSize: 34,
         marginBottom: 12,
         color: " #333",
     },
     input: {
-        height: 46,
+        margin: 40,
+        height: 50,
         borderColor: "gray",
         paddingVertical: 12,
         borderWidth: 1,
@@ -106,17 +100,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     areaButton: {
+        margin:100,
+        height:50,
         backgroundColor: "#000069",
         padding: 10,
         alignItems: "center",
         marginTop: 36,
-        borderRadius: 8,
-
+        borderRadius: 10,
     },
     textButton: {
         color: "#ffd700",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
-
     },
 });
