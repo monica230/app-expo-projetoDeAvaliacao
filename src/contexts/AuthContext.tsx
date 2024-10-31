@@ -21,26 +21,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false);
 
-    function signIn(email: any, password: any) {
+    function signIn(email: string, password: string) {
+        console.log(email, password)
 
         setLoading(true);
 
-        axios.post('http://192.168.0.8/login', {
-            email: email,
-            passord: password
+        axios.post("http://192.168.0.7:3000/login", {
+            email: `${email}`,
+            password: `${password}`
         })
-            .then(function (response) {
-                setUser(response.data);
-                storeData('@user', response.data);
-                setLoading(false);
-            })
-            .catch(function (error) {
-                console.error(error);
-                alert("Erro ao fazer login");
-                setLoading(false);
-            });
+        .then((response) => {
+            setUser(response.data);
+            console.log(">>> user context: ", user)
+            storeData('@user', response.data);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error(error);
+            alert("Erro ao fazer login");
+            setLoading(false);
+        });
     }
-
+    
     function signOut() {
         setUser(null);
         storeData('@user', null);

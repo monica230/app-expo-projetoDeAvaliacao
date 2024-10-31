@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
 import Header from '../components/Header';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Feather } from "@expo/vector-icons";
 
 export default function HomeScreen({ navigation }: any) {
     function handleNavigateToUser() {
@@ -17,13 +17,13 @@ export default function HomeScreen({ navigation }: any) {
                 <View>
 
                     <TouchableOpacity onPress={handleNavigateToStock} style={styles.button}>
-                        <Icon name="archive" size={30} color="#ccc" />
+                        <Feather name="archive" size={30} color="#ccc" />
                         <Text style={styles.text}>Estoque</Text>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={handleNavigateToUser} style={styles.button}>
-                        <Icon name="user-secret" size={30} color="#ccc" />
+                        <Feather name="user" size={30} color="#ccc" />
                         <Text style={styles.text}>Usuário</Text>
                     </TouchableOpacity>
                 </View>

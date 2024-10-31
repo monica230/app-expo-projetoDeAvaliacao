@@ -6,8 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function RouteStack() {
 
-    let { user }: any = useAuth();
-    user=true
+    const { user }: any = useAuth();
 
     return (
         <>
