@@ -40,7 +40,7 @@ export default function NovoUsuario({ navigation }: any) {
 
         // fazer requisição para cadastrar usuario
 
-        axios.post('http://192.168.0.212:3000/register', {
+        axios.post('http://192.168.0.184:3000/register', {
             profile: profile,
             name: name,
             document: document,

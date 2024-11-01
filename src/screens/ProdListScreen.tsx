@@ -24,7 +24,7 @@ export default function ProdListScreen() {
     function getProducts() {
         setIsLoading(true)
 
-        axios.get("http://192.168.0.212:3000/products")
+        axios.get("http://192.168.0.184:3000/products")
             .then((response) => {
                 setProducts(response.data)
                 setProductsFiltered(response.data)

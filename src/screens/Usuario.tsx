@@ -24,7 +24,7 @@ export default function Usuario({ navigation }: any) {
     }
 
     function handleChangeSwitch(item: User) {
-        axios.patch(`http://192.168.0.212:3000/users/${item.id}/toggle-status`)
+        axios.patch(`http://192.168.0.184:3000/users/${item.id}/toggle-status`)
             .then(() => {
                 alert("Status atualizado.")
                 setUsers(users.map(user => {
