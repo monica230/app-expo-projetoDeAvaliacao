@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TouchableOpacity, View, Text, SafeAreaView, StyleSheet, FlatList, Switch } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 type User = {
     id: number;
@@ -24,9 +24,16 @@ export default function Usuario({ navigation }: any) {
     }
 
     function handleChangeSwitch(item: User) {
-        axios.patch(`http://192.168.0.7:3000/users/${item.id}/toggle-status`)
+        axios.patch(`http://192.168.0.212:3000/users/${item.id}/toggle-status`)
             .then(() => {
                 alert("Status atualizado.")
+                setUsers(users.map(user => {
+                    if (user.id === item.id) {
+                        user.status = user.status === 1 ? 0 : 1
+                    }
+                    return user
+                }))
+                setIsEnabled(item.status === 1 ? true : false)
             })
             .catch((error) => {
                 console.error(error)
@@ -36,7 +43,7 @@ export default function Usuario({ navigation }: any) {
 
     useEffect(() => {
         function pegarUsuarios() {
-            axios.get("http://192.168.0.7:3000/users")
+            axios.get("http://192.168.0.212:3000/users")
                 .then((response) => {
                     setUsers(response.data)
                     console.log(users)
@@ -66,9 +73,21 @@ export default function Usuario({ navigation }: any) {
                 data={users}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
-                    <View style={styles.card}>
+                    <View style={[styles.card, {opacity: item.status === 0 ? 0.4 : 1} ]}>
                         <View style={styles.areaswitch}>
-                            <Icon name="motorcycle" size={30} color="#ccc" />
+                            { 
+                            item.profile === "admin" ? 
+                            <FontAwesome 
+                            name="user" size={30} color="gray" /> :
+                            item.profile === "motorista" ?
+                            <FontAwesome 
+                            name="motorcycle" 
+                            size={30} 
+                            color="gray" />: 
+                            <MaterialCommunityIcons
+                            name="warehouse" size={30} color="gray" />
+                        }
+                            
                             <Switch
                                 value={isEnabled}
                                 onValueChange={() => handleChangeSwitch(item)}
@@ -128,6 +147,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
         margin: 10,
+        backgroundColor: "#f4f3f4",
     },
     userName: {
         fontSize: 18,
@@ -142,6 +162,7 @@ const styles = StyleSheet.create({
     areaswitch: {
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         width: 150,
         padding: 10,
     }

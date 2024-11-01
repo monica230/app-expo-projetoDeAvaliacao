@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, StyleSheet, TouchableOpacity, View, TextInput, } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, TextInput, ScrollView } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useState } from "react";
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function NovoUsuario({ navigation }: any) {
     const [confirme, setconfirme] = useState('')
 
     function handleNavigateToUser() {
-        navigation.navigate("ProdListScreen");
+        navigation.navigate("Usuario");
     }
 
     function changeProfileMotorista() {
@@ -29,7 +29,6 @@ export default function NovoUsuario({ navigation }: any) {
 
     function saveUser() {
         // validar
-        console.log(profile, name, document, endereco, email, senha, confirme)
         if (profile === "" || name === "" || document === "" || endereco === "" || email === "" || senha === "" || confirme === "") {
             alert("todos os campos são obrigatorios!")
             return
@@ -41,7 +40,7 @@ export default function NovoUsuario({ navigation }: any) {
 
         // fazer requisição para cadastrar usuario
 
-        axios.post('http://192.168.0.7:3000/register', {
+        axios.post('http://192.168.0.212:3000/register', {
             profile: profile,
             name: name,
             document: document,
@@ -60,7 +59,7 @@ export default function NovoUsuario({ navigation }: any) {
     }
 
     return (
-        <SafeAreaView>
+        <ScrollView>
 
             <View style={styles.containerOptions}>
                 <TouchableOpacity style={styles.optionProfile} onPress={changeProfileMotorista}>
@@ -147,7 +146,7 @@ export default function NovoUsuario({ navigation }: any) {
 
 
 
-        </SafeAreaView>
+        </ScrollView>
 
     )
 }
@@ -189,7 +188,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ccc",
         width: "100%",
-        height: 32,
         marginVertical: 10,
         padding: 10,
         borderRadius: 8,

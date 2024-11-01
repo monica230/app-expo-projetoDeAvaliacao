@@ -7,46 +7,64 @@ import ProdListScreen from "../screens/ProdListScreen";
 import AddMovements from "../screens/Addmovements"
 import { useAuth } from "../contexts/AuthContext";
 import AddMovementDriver from "../screens/AddMovementDriver"
+import NewMovement from "../screens/NewMovement";
 
 const Stack = createNativeStackNavigator();
 
 export default function AuthStack() {
 
-    const { user }: any  = useAuth();
+    const { user } = useAuth();
 
-    const [ profile, setProfile ] = useState('')
-
-    if(user.profile === "admin") {
-        setProfile("Home")
-    }
-    else if(user.profile === "filial") {
-        setProfile("Addmovements")
-    }
-    else{
-        setProfile("AddMovementDriver")
+    if (user) {
+        console.log(user.profile);
     }
 
 
     return (
         /*  rotas autenticadas */
-        <Stack.Navigator initialRouteName={profile}>
-            <Stack.Screen name="Home" component={HomeScreen}
+        user?.profile === "admin" ? (
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen}
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Stack.Screen name="Usuario" component={Usuario}/>
+
+                <Stack.Screen name="Adicionar Usuário" component={AddUser}/>
+
+                <Stack.Screen name="ProdListScreen" component={ProdListScreen}/>
+
+                
+                            
+            </Stack.Navigator>
+        ) : 
+        user?.profile === "filial" ? (
+            <Stack.Navigator>
+                <Stack.Screen 
+                name="Addmovements" 
+                component={AddMovements}
+                options={{
+                    headerShown: false
+                }}/>
+
+                <Stack.Screen 
+                name="Nova Movimentação" 
+                component={NewMovement}
+                />
+            </Stack.Navigator>
+        ) :
+        (
+            <Stack.Navigator>
+                <Stack.Screen 
+                name="AddMovementDriver" 
+                component={AddMovementDriver}
                 options={{
                     headerShown: false
                 }}
-            />
-            <Stack.Screen name="Usuario" component={Usuario}
-            />
-            <Stack.Screen name="Adicionar Usuário" component={AddUser}
-            />
-            <Stack.Screen name="ProdListScreen" component={ProdListScreen}/>
-
-            <Stack.Screen name="Addmovements" component={AddMovements}/>
-            
-            <Stack.Screen name="AddMovementDriver" component={AddMovementDriver}/>
-            
-
-        </Stack.Navigator>
+                />
+            </Stack.Navigator>
+        )
 
     )
 }
