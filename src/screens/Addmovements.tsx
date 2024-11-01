@@ -18,7 +18,7 @@ export default function MovementsListScreen({ navigation }: any) {
 
     useEffect(() => {
         function getMovimentos() {
-            axios.get('http://192.168.0.212:30000/movements')
+            axios.get('http://192.168.0.184:30000/movements')
                 .then((response) => {
                     setMovements(response.data);
                 })
