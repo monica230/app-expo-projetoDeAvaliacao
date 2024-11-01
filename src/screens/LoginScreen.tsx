@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginScreen() {
 
-    const { signIn }: any = useAuth();
+    const { signIn } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
