@@ -54,7 +54,7 @@ export default function NewMovement({ navigation }: any) {
 
         function getProdutos() {
             // Lógica para buscar as produtos
-            axios.get('http://192.168.0.212:3000/products/options')
+            axios.get('http://192.168.0.184:3000/products/options')
                 .then((response) => {
                     setProdutos(response.data);
                 })
